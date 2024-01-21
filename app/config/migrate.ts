@@ -164,13 +164,16 @@ export const migrateHyper3Config = () => {
   copySync(resolve(dirname(legacyCfgPath), '.hyper_plugins', 'local'), plugs.local);
 
   const defaultCfgData = JSON.parse(readFileSync(defaultCfg, 'utf8'));
-  let newCfgData;
+
+  let newCfgData = defaultCfgData;
+
   try {
     const legacyCfgRaw = readFileSync(legacyCfgPath, 'utf8');
     const legacyCfgData = _extractDefault(legacyCfgRaw);
+    const pluginCode = configToPlugin(legacyCfgRaw);
+
     newCfgData = merge({}, defaultCfgData, legacyCfgData);
 
-    const pluginCode = configToPlugin(legacyCfgRaw);
     if (pluginCode) {
       const pluginPath = resolve(plugs.local, 'migrated-hyper3-config.js');
       newCfgData.localPlugins = ['migrated-hyper3-config', ...(newCfgData.localPlugins || [])];
@@ -183,8 +186,9 @@ export const migrateHyper3Config = () => {
       `Failed to migrate your config from Hyper 3.\nDefault config will be created instead at ${cfgPath}`
     );
     newCfgData = defaultCfgData;
-  }
-  _write(cfgPath, JSON.stringify(newCfgData, null, 2));
+  } finally {
+    _write(cfgPath, JSON.stringify(newCfgData, null, 2));
 
-  notify('Hyper 4', `Settings location and format has changed to ${cfgPath}`);
+    notify('Hyper 4', `Settings location and format has changed to ${cfgPath}`);
+  }
 };
