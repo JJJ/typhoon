@@ -21,7 +21,7 @@ import terms from '../terms';
 import processClipboard from '../utils/paste';
 import {decorate} from '../utils/plugins';
 
-import _SearchBox from './searchBox';
+import _SearchBox from './search-box';
 
 import 'xterm/css/xterm.css';
 

@@ -146,7 +146,7 @@ const SearchBox = forwardRef<HTMLDivElement, SearchBoxProps>((props, ref) => {
         </SearchButton>
       </div>
 
-      <span style={{minWidth: '60px', marginLeft: '4px'}}>
+      <span className="search-results">
         {results === undefined
           ? ''
           : results.resultCount === 0
@@ -200,6 +200,11 @@ const SearchBox = forwardRef<HTMLDivElement, SearchBoxProps>((props, ref) => {
             color: ${foregroundColor};
             align-self: stretch;
             width: 100px;
+          }
+
+          .search-results {
+            min-width: 60px;
+            margin-left: 4px;
           }
 
           .flex-row {
