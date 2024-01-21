@@ -8,7 +8,7 @@ const shellMenu = (
   const isMac = process.platform === 'darwin';
 
   return {
-    label: isMac ? 'Shell' : 'File',
+    label: 'File',
     submenu: [
       {
         label: 'New Tab',
