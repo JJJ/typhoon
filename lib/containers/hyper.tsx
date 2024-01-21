@@ -36,7 +36,7 @@ const Hyper = forwardRef<HTMLDivElement, HyperProps>((props, ref) => {
 
   const handleSelectAll = () => {
     const term = terms.current?.getActiveTerm();
-    if (term) {
+    if (term && !term.props.search) {
       term.selectAll();
     }
   };
@@ -92,14 +92,11 @@ const Hyper = forwardRef<HTMLDivElement, HyperProps>((props, ref) => {
   }, []);
 
   const {isMac: isMac_, customCSS, uiFontFamily, borderColor, maximized, fullScreen} = props;
-  const borderWidth = isMac_ ? '' : `${maximized ? '0' : '1'}px`;
+  const borderWidth = isMac_ ? '0' : `${maximized ? '0' : '1px'}`;
   stylis.set({prefix: false});
   return (
     <div id="hyper" ref={ref}>
-      <div
-        style={{fontFamily: uiFontFamily, borderColor, borderWidth}}
-        className={`hyper_main ${isMac_ && 'hyper_mainRounded'} ${fullScreen ? 'fullScreen' : ''}`}
-      >
+      <div className={`hyper_main ${isMac_ && 'hyper_mainRounded'} ${fullScreen ? 'fullScreen' : ''}`}>
         <HeaderContainer />
         <TermsContainer ref_={onTermsRef} />
         {props.customInnerChildren}
@@ -117,7 +114,8 @@ const Hyper = forwardRef<HTMLDivElement, HyperProps>((props, ref) => {
             left: 0;
             right: 0;
             bottom: 0;
-            border: 1px solid #333;
+            border: ${borderWidth} solid ${borderColor};
+            font-family: ${uiFontFamily};
           }
 
           .hyper_mainRounded {
