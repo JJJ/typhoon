@@ -87,38 +87,35 @@ const SplitPane = forwardRef<HTMLDivElement, SplitPaneProps>((props, ref) => {
   }, []);
 
   const {children, direction, borderColor} = props;
-  const sizeProperty = direction === 'horizontal' ? 'height' : 'width';
-  // workaround for the fact that if we don't specify
-  // sizes, sometimes flex fails to calculate the
-  // right height for the horizontal panes
-  const sizes = props.sizes || new Array<number>(children.length).fill(1 / children.length);
+  const sizes = getSizes();
+  const paneRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    sizes.forEach((size, i) => {
+      const paneSize = size * 100 + '%';
+      paneRefs.current[i]?.style.setProperty('--pane-size', paneSize);
+    });
+  }, [sizes]);
+
   return (
     <div className={`splitpane_panes splitpane_panes_${direction}`} ref={ref}>
       {children.map((child, i) => {
-        const style = {
-          // flexBasis doesn't work for the first horizontal pane, height need to be specified
-          [sizeProperty]: `${sizes[i] * 100}%`,
-          flexBasis: `${sizes[i] * 100}%`,
-          flexGrow: 0
-        };
-
         return (
           <React.Fragment key={i}>
-            <div className="splitpane_pane" style={style}>
+            <div ref={(el) => (paneRefs.current[i] = el)} className="splitpane_pane ${direction}_pane pane_${i}">
               {child}
             </div>
             {i < children.length - 1 ? (
               <div
                 onMouseDown={(e) => handleDragStart(e, i)}
                 onDoubleClick={(e) => handleAutoResize(e, i)}
-                style={{backgroundColor: borderColor}}
                 className={`splitpane_divider splitpane_divider_${direction}`}
               />
             ) : null}
           </React.Fragment>
         );
       })}
-      <div style={{display: dragging ? 'block' : 'none'}} className="splitpane_shim" />
+      <div className="splitpane_shim" />
 
       <style jsx>
         {`
@@ -141,11 +138,22 @@ const SplitPane = forwardRef<HTMLDivElement, SplitPaneProps>((props, ref) => {
 
           .splitpane_pane {
             flex: 1;
+            flex-grow: 0;
+            flex-basis: var(--pane-size);
             outline: none;
             position: relative;
           }
 
+          .splitpane_pane.horizontal_pane {
+            height: var(--pane-size);
+          }
+
+          .splitpane_pane.vertical_pane {
+            width: var(--pane-size);
+          }
+
           .splitpane_divider {
+            background-color: ${borderColor};
             box-sizing: border-box;
             z-index: 1;
             background-clip: padding-box;
@@ -181,6 +189,7 @@ const SplitPane = forwardRef<HTMLDivElement, SplitPaneProps>((props, ref) => {
             right: 0;
             bottom: 0;
             background: transparent;
+            display: ${dragging ? 'block' : 'none'};
           }
         `}
       </style>
