@@ -117,7 +117,6 @@ const config: webpack.Configuration[] = [
       reselect: 'require("./node_modules/reselect/lib/index.js")',
       'seamless-immutable': 'require("./node_modules/seamless-immutable/src/seamless-immutable.js")',
       stylis: 'require("./node_modules/stylis/stylis.js")',
-      'xterm-addon-unicode11': 'require("./node_modules/xterm-addon-unicode11/lib/xterm-addon-unicode11.js")',
       args: 'require("./node_modules/args/lib/index.js")',
       mousetrap: 'require("./node_modules/mousetrap/mousetrap.js")',
       open: 'require("./node_modules/open/index.js")',
@@ -127,15 +126,14 @@ const config: webpack.Configuration[] = [
       'xterm-addon-web-links': 'require("./node_modules/xterm-addon-web-links/lib/xterm-addon-web-links.js")',
       'xterm-addon-webgl': 'require("./node_modules/xterm-addon-webgl/lib/xterm-addon-webgl.js")',
       'xterm-addon-canvas': 'require("./node_modules/xterm-addon-canvas/lib/xterm-addon-canvas.js")',
+      'xterm-addon-unicode11': 'require("./node_modules/xterm-addon-unicode11/lib/xterm-addon-unicode11.js")',
+      'xterm-map': 'require("./node_modules/xterm/lib/xterm.js.map")',
       xterm: 'require("./node_modules/xterm/lib/xterm.js")'
     },
     plugins: [
       new webpack.IgnorePlugin({resourceRegExp: /.*\.js.map$/i}),
-
       new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify(nodeEnv)
-        }
+        'process.env.NODE_ENV': JSON.stringify(nodeEnv)
       }),
       new Copy({
         patterns: [
