@@ -10,41 +10,37 @@ const Tab = decorate(Tab_, 'Tab');
 const isMac = /Mac/.test(navigator.userAgent);
 
 const Tabs = forwardRef<HTMLElement, TabsProps>((props, ref) => {
-  const {tabs = [], borderColor, onChange, onClose, fullScreen} = props;
-
-  const hide = !isMac && tabs.length === 1;
+  const {tabs = [], borderColor = '#ccc', onChange, onClose, fullScreen} = props;
 
   return (
-    <nav className={`tabs_nav ${hide ? 'tabs_hiddenNav' : ''}`} ref={ref}>
+    <nav className="tabs_nav" ref={ref}>
       {props.customChildrenBefore}
-      {tabs.length === 1 && isMac ? <div className="tabs_title">{tabs[0].title}</div> : null}
-      {tabs.length > 1 ? (
-        <>
-          <ul key="list" className={`tabs_list ${fullScreen && isMac ? 'tabs_fullScreen' : ''}`}>
-            {tabs.map((tab, i) => {
-              const {uid, title, isActive, hasActivity} = tab;
-              const tabProps = getTabProps(tab, props, {
-                text: title === '' ? 'Shell' : title,
-                isFirst: i === 0,
-                isLast: tabs.length - 1 === i,
-                borderColor,
-                isActive,
-                hasActivity,
-                onSelect: onChange.bind(null, uid),
-                onClose: onClose.bind(null, uid)
-              });
-              return <Tab key={`tab-${uid}`} {...tabProps} />;
-            })}
-          </ul>
-          {isMac && (
-            <div
-              key="shim"
-              style={{borderColor}}
-              className={`tabs_borderShim ${fullScreen ? 'tabs_borderShimUndo' : ''}`}
-            />
-          )}
-        </>
-      ) : null}
+      <>
+        <ul key="list" className={`tabs_list ${fullScreen && isMac ? 'tabs_fullScreen' : ''}`}>
+          {tabs.map((tab, i) => {
+            const {uid, title, isActive, hasActivity} = tab;
+            const tabProps = getTabProps(tab, props, {
+              text: title === '' ? 'Shell' : title,
+              isFirst: i === 0,
+              isLast: tabs.length - 1 === i,
+              borderColor,
+              isActive,
+              hasActivity,
+              onSelect: onChange.bind(null, uid),
+              onClose: onClose.bind(null, uid)
+            });
+            return <Tab key={`tab-${uid}`} {...tabProps} />;
+          })}
+        </ul>
+        {isMac && (
+          // eslint-disable-next-line prettier/prettier
+          <div
+            className={`tabs_borderShim ${fullScreen ? 'tabs_borderShimUndo' : ''}`}
+            key="shim"
+          />
+        )}
+      </>
+
       <DropdownButton {...props} tabsVisible={tabs.length > 1} />
       {props.customChildren}
 
@@ -65,21 +61,6 @@ const Tabs = forwardRef<HTMLElement, TabsProps>((props, ref) => {
             flex-flow: row;
           }
 
-          .tabs_hiddenNav {
-            display: none;
-          }
-
-          .tabs_title {
-            text-align: center;
-            color: #fff;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            padding-left: 76px;
-            padding-right: 76px;
-            flex-grow: 1;
-          }
-
           .tabs_list {
             max-height: 34px;
             display: flex;
@@ -96,13 +77,13 @@ const Tabs = forwardRef<HTMLElement, TabsProps>((props, ref) => {
             position: absolute;
             width: 76px;
             bottom: 0;
-            border-color: #ccc;
+            border-color: ${borderColor};
             border-bottom-style: solid;
             border-bottom-width: 1px;
           }
 
           .tabs_borderShimUndo {
-            border-bottom-width: 0px;
+            border-bottom-width: 0;
           }
         `}
       </style>

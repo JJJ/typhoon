@@ -57,7 +57,7 @@ const SearchButton = ({
             cursor: pointer;
             color: ${foregroundColor};
             padding: 2px;
-            margin: 4px 0px;
+            margin: 4px 0;
             height: 18px;
             width: 18px;
             border-radius: 2px;
@@ -236,7 +236,7 @@ const SearchBox = forwardRef<HTMLDivElement, SearchBoxProps>((props, ref) => {
             outline: ${borderColor} solid 1px;
             background-color: ${backgroundColor};
             color: ${foregroundColor};
-            padding: 0px 4px;
+            padding: 0 4px;
           }
 
           .search-results {

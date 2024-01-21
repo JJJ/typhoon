@@ -227,7 +227,7 @@ const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
           }
 
           .header_windowControlsLeft {
-            left: 0px;
+            left: 0;
           }
 
           .header_closeWindowLeft {

@@ -36,7 +36,7 @@ const DropdownButton = ({defaultProfile, profiles, openNewTab, backgroundColor, 
       onDoubleClick={(e) => e.stopPropagation()}
       onBlur={() => setDropdownOpen(false)}
     >
-      <VscChevronDown style={{verticalAlign: 'middle'}} />
+      <VscChevronDown className="profile_dropdown_icon" />
 
       {dropdownOpen && (
         <ul key="dropdown" className="profile_dropdown">
@@ -59,33 +59,37 @@ const DropdownButton = ({defaultProfile, profiles, openNewTab, backgroundColor, 
 
       <style jsx>
         {`
+          .profile_dropdown_icon {
+            vertical-align: 'middle';
+          }
+
           .profile_dropdown {
             background-color: ${backgroundColor};
             border-color: ${borderColor};
             border-width: 1px;
             border-style: solid;
-            border-bottom-width: 0px;
-            border-right-width: 0px;
+            border-bottom-width: 0;
+            border-right-width: 0;
             position: absolute;
             top: 33px;
-            right: 0px;
+            right: 0;
             z-index: 1000;
-            padding: 0px;
-            margin: 0px;
+            padding: 0;
+            margin: 0;
             list-style-type: none;
             white-space: nowrap;
             min-width: 120px;
           }
 
           .profile_dropdown_item {
-            padding: 0px 20px;
+            padding: 0 20px;
             height: 34px;
             line-height: 34px;
             cursor: pointer;
             font-size: 12px;
             color: #fff;
             background-color: transparent;
-            border-width: 0px;
+            border-width: 0;
             border-style: solid;
             border-color: transparent;
             border-bottom-width: 1px;
@@ -131,7 +135,7 @@ const DropdownButton = ({defaultProfile, profiles, openNewTab, backgroundColor, 
           .tabs_hidden {
             border-color: transparent;
             position: absolute;
-            right: 0px;
+            right: 0;
           }
 
           .tabs_hidden:hover {
