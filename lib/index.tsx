@@ -233,13 +233,19 @@ rpc.on('leave full screen', () => {
   store_.dispatch(uiActions.leaveFullScreen());
 });
 
-const root = createRoot(document.getElementById('mount')!);
+const mountElement = document.getElementById('mount');
 
-root.render(
-  <Provider store={store_}>
-    <HyperContainer />
-  </Provider>
-);
+if (!mountElement) {
+  throw new Error('Unable to find element with ID "mount"');
+} else {
+  const root = createRoot(mountElement);
+
+  root.render(
+    <Provider store={store_}>
+      <HyperContainer />
+    </Provider>
+  );
+}
 
 rpc.on('reload', () => {
   plugins.reload();
