@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
     "declarationDir": "../dist/tmp/appdts/",
     "outDir": "../target/",
     "noImplicitAny": false
@@ -10,5 +11,8 @@
     "./package.json",
     "../typings/extend-electron.d.ts",
     "../typings/ext-modules.d.ts"
+  ],
+  "exclude": [
+    "dist"
   ]
 }

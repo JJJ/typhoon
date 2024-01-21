@@ -13,7 +13,7 @@ import got from 'got';
 import open from 'open';
 import ora from 'ora';
 
-import {version} from '../app/package.json';
+import version = require('../app/package.json');
 
 import * as api from './api';
 
