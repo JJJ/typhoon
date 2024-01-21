@@ -120,68 +120,70 @@ const SplitPane = forwardRef<HTMLDivElement, SplitPaneProps>((props, ref) => {
       })}
       <div style={{display: dragging ? 'block' : 'none'}} className="splitpane_shim" />
 
-      <style jsx>{`
-        .splitpane_panes {
-          display: flex;
-          flex: 1;
-          outline: none;
-          position: relative;
-          width: 100%;
-          height: 100%;
-        }
+      <style jsx>
+        {`
+          .splitpane_panes {
+            display: flex;
+            flex: 1;
+            outline: none;
+            position: relative;
+            width: 100%;
+            height: 100%;
+          }
 
-        .splitpane_panes_vertical {
-          flex-direction: row;
-        }
+          .splitpane_panes_vertical {
+            flex-direction: row;
+          }
 
-        .splitpane_panes_horizontal {
-          flex-direction: column;
-        }
+          .splitpane_panes_horizontal {
+            flex-direction: column;
+          }
 
-        .splitpane_pane {
-          flex: 1;
-          outline: none;
-          position: relative;
-        }
+          .splitpane_pane {
+            flex: 1;
+            outline: none;
+            position: relative;
+          }
 
-        .splitpane_divider {
-          box-sizing: border-box;
-          z-index: 1;
-          background-clip: padding-box;
-          flex-shrink: 0;
-        }
+          .splitpane_divider {
+            box-sizing: border-box;
+            z-index: 1;
+            background-clip: padding-box;
+            flex-shrink: 0;
+          }
 
-        .splitpane_divider_vertical {
-          border-left: 5px solid rgba(255, 255, 255, 0);
-          border-right: 5px solid rgba(255, 255, 255, 0);
-          width: 11px;
-          margin: 0 -5px;
-          cursor: col-resize;
-        }
+          .splitpane_divider_vertical {
+            border-left: 5px solid rgba(255, 255, 255, 0);
+            border-right: 5px solid rgba(255, 255, 255, 0);
+            width: 11px;
+            margin: 0 -5px;
+            cursor: col-resize;
+          }
 
-        .splitpane_divider_horizontal {
-          height: 11px;
-          margin: -5px 0;
-          border-top: 5px solid rgba(255, 255, 255, 0);
-          border-bottom: 5px solid rgba(255, 255, 255, 0);
-          cursor: row-resize;
-          width: 100%;
-        }
+          .splitpane_divider_horizontal {
+            height: 11px;
+            margin: -5px 0;
+            border-top: 5px solid rgba(255, 255, 255, 0);
+            border-bottom: 5px solid rgba(255, 255, 255, 0);
+            cursor: row-resize;
+            width: 100%;
+          }
 
-        /*
-          this shim is used to make sure mousemove events
-          trigger in all the draggable area of the screen
-          this is not the case due to hterm's <iframe>
-        */
-        .splitpane_shim {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: transparent;
-        }
-      `}</style>
+          /*
+            this shim is used to make sure mousemove events
+            trigger in all the draggable area of the screen
+            this is not the case due to hterm's <iframe>
+          */
+          .splitpane_shim {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+          }
+        `}
+      </style>
     </div>
   );
 });

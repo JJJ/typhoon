@@ -59,48 +59,51 @@ const Notification = forwardRef<HTMLDivElement, React.PropsWithChildren<Notifica
     };
   }, []);
 
-  const {backgroundColor, color} = props;
-  const opacity = dismissing ? 0 : 1;
+  const {backgroundColor = 'rgba(255, 255, 255, 0.2)', color = '#fff'} = props;
+  const opacity = dismissing ? '0' : '1';
   return (
-    <div ref={onElement} style={{opacity, backgroundColor, color}} className="notification_indicator">
+    <div ref={onElement} className="notification_indicator">
       {props.customChildrenBefore}
       {props.children || props.text}
       {props.userDismissable ? (
-        <a className="notification_dismissLink" onClick={handleDismiss} style={{color: props.userDismissColor}}>
+        <a className="notification_dismissLink" onClick={handleDismiss}>
           [x]
         </a>
       ) : null}
       {props.customChildren}
 
-      <style jsx>{`
-        .notification_indicator {
-          display: inline-block;
-          cursor: default;
-          -webkit-user-select: none;
-          background: rgba(255, 255, 255, 0.2);
-          padding: 8px 14px 9px;
-          margin-left: 10px;
-          transition: 150ms opacity ease;
-          color: #fff;
-          font-size: 12px;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-            'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-        }
+      <style jsx>
+        {`
+          .notification_indicator {
+            display: inline-block;
+            cursor: default;
+            -webkit-user-select: none;
+            background-color: ${backgroundColor};
+            padding: 8px 14px 9px;
+            margin-left: 10px;
+            transition: 150ms opacity ease;
+            color: ${color};
+            opacity: ${opacity};
+            font-size: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+              'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+          }
 
-        .notification_dismissLink {
-          position: relative;
-          left: 4px;
-          cursor: pointer;
-          font-weight: 600;
-          color: currentColor;
-          transition: font-weight 0.1s ease-in-out;
-        }
+          .notification_dismissLink {
+            position: relative;
+            left: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            color: ${props.userDismissColor ? props.userDismissColor : 'currentColor'};
+            transition: font-weight 0.1s ease-in-out;
+          }
 
-        .notification_dismissLink:hover,
-        .notification_dismissLink:focus {
-          font-weight: 900;
-        }
-      `}</style>
+          .notification_dismissLink:hover,
+          .notification_dismissLink:focus {
+            font-weight: 900;
+          }
+        `}
+      </style>
     </div>
   );
 });

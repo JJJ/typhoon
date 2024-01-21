@@ -48,62 +48,64 @@ const Tabs = forwardRef<HTMLElement, TabsProps>((props, ref) => {
       <DropdownButton {...props} tabsVisible={tabs.length > 1} />
       {props.customChildren}
 
-      <style jsx>{`
-        .tabs_nav {
-          font-size: 12px;
-          height: 34px;
-          line-height: 34px;
-          vertical-align: middle;
-          color: #9b9b9b;
-          cursor: default;
-          position: relative;
-          -webkit-user-select: none;
-          -webkit-app-region: ${isMac ? 'drag' : ''};
-          top: ${isMac ? '0px' : '34px'};
-          display: flex;
-          flex-flow: row;
-        }
+      <style jsx>
+        {`
+          .tabs_nav {
+            font-size: 12px;
+            height: 34px;
+            line-height: 34px;
+            vertical-align: middle;
+            color: #9b9b9b;
+            cursor: default;
+            position: relative;
+            -webkit-user-select: none;
+            -webkit-app-region: ${isMac ? 'drag' : ''};
+            top: ${isMac ? '0px' : '34px'};
+            display: flex;
+            flex-flow: row;
+          }
 
-        .tabs_hiddenNav {
-          display: none;
-        }
+          .tabs_hiddenNav {
+            display: none;
+          }
 
-        .tabs_title {
-          text-align: center;
-          color: #fff;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          padding-left: 76px;
-          padding-right: 76px;
-          flex-grow: 1;
-        }
+          .tabs_title {
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-left: 76px;
+            padding-right: 76px;
+            flex-grow: 1;
+          }
 
-        .tabs_list {
-          max-height: 34px;
-          display: flex;
-          flex-flow: row;
-          margin-left: ${isMac ? '76px' : '0'};
-          flex-grow: 1;
-        }
+          .tabs_list {
+            max-height: 34px;
+            display: flex;
+            flex-flow: row;
+            margin-left: ${isMac ? '76px' : '0'};
+            flex-grow: 1;
+          }
 
-        .tabs_fullScreen {
-          margin-left: -1px;
-        }
+          .tabs_fullScreen {
+            margin-left: -1px;
+          }
 
-        .tabs_borderShim {
-          position: absolute;
-          width: 76px;
-          bottom: 0;
-          border-color: #ccc;
-          border-bottom-style: solid;
-          border-bottom-width: 1px;
-        }
+          .tabs_borderShim {
+            position: absolute;
+            width: 76px;
+            bottom: 0;
+            border-color: #ccc;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+          }
 
-        .tabs_borderShimUndo {
-          border-bottom-width: 0px;
-        }
-      `}</style>
+          .tabs_borderShimUndo {
+            border-bottom-width: 0px;
+          }
+        `}
+      </style>
     </nav>
   );
 });

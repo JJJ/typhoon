@@ -98,10 +98,7 @@ const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
       ref={ref}
     >
       {!isMac && (
-        <div
-          className={`header_windowHeader ${props.tabs.length > 1 ? 'header_windowHeaderWithBorder' : ''}`}
-          style={{borderColor}}
-        >
+        <div className={`header_windowHeader ${props.tabs.length > 1 ? 'header_windowHeaderWithBorder' : ''}`}>
           {hambMenu && (
             <svg
               className={`header_shape ${left ? 'header_hamburgerMenuRight' : 'header_hamburgerMenuLeft'}`}
@@ -148,109 +145,112 @@ const Header = forwardRef<HTMLElement, HeaderProps>((props, ref) => {
       />
       {props.customChildren}
 
-      <style jsx>{`
-        .header_header {
-          position: fixed;
-          top: 1px;
-          left: 1px;
-          right: 1px;
-          z-index: 100;
-        }
+      <style jsx>
+        {`
+          .header_header {
+            position: fixed;
+            top: 1px;
+            left: 1px;
+            right: 1px;
+            z-index: 100;
+          }
 
-        .header_headerRounded {
-          border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
-        }
+          .header_headerRounded {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+          }
 
-        .header_windowHeader {
-          height: 34px;
-          width: 100%;
-          position: fixed;
-          top: 1px;
-          left: 1px;
-          right: 1px;
-          -webkit-app-region: drag;
-          -webkit-user-select: none;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+          .header_windowHeader {
+            border-color: ${borderColor};
+            height: 34px;
+            width: 100%;
+            position: fixed;
+            top: 1px;
+            left: 1px;
+            right: 1px;
+            -webkit-app-region: drag;
+            -webkit-user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
 
-        .header_windowHeaderWithBorder {
-          border-color: #ccc;
-          border-bottom-style: solid;
-          border-bottom-width: 1px;
-        }
+          .header_windowHeaderWithBorder {
+            border-color: #ccc;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+          }
 
-        .header_appTitle {
-          font-size: 12px;
-        }
+          .header_appTitle {
+            font-size: 12px;
+          }
 
-        .header_shape,
-        .header_shape > svg {
-          width: 40px;
-          height: 34px;
-          padding: 12px 15px 12px 15px;
-          -webkit-app-region: no-drag;
-          color: #fff;
-          opacity: 0.5;
-          shape-rendering: crispEdges;
-        }
+          .header_shape,
+          .header_shape > svg {
+            width: 40px;
+            height: 34px;
+            padding: 12px 15px 12px 15px;
+            -webkit-app-region: no-drag;
+            color: #fff;
+            opacity: 0.5;
+            shape-rendering: crispEdges;
+          }
 
-        .header_shape:hover {
-          opacity: 1;
-        }
+          .header_shape:hover {
+            opacity: 1;
+          }
 
-        .header_shape:active {
-          opacity: 0.3;
-        }
+          .header_shape:active {
+            opacity: 0.3;
+          }
 
-        .header_hamburgerMenuLeft {
-          position: fixed;
-          top: 0;
-          left: 0;
-        }
+          .header_hamburgerMenuLeft {
+            position: fixed;
+            top: 0;
+            left: 0;
+          }
 
-        .header_hamburgerMenuRight {
-          position: fixed;
-          top: 0;
-          right: 0;
-        }
+          .header_hamburgerMenuRight {
+            position: fixed;
+            top: 0;
+            right: 0;
+          }
 
-        .header_windowControls {
-          display: flex;
-          width: 120px;
-          height: 34px;
-          justify-content: space-between;
-          position: fixed;
-          top: 0;
-          right: 0;
-        }
+          .header_windowControls {
+            display: flex;
+            width: 120px;
+            height: 34px;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            right: 0;
+          }
 
-        .header_windowControlsLeft {
-          left: 0px;
-        }
+          .header_windowControlsLeft {
+            left: 0px;
+          }
 
-        .header_closeWindowLeft {
-          order: 1;
-        }
+          .header_closeWindowLeft {
+            order: 1;
+          }
 
-        .header_minimizeWindowLeft {
-          order: 2;
-        }
+          .header_minimizeWindowLeft {
+            order: 2;
+          }
 
-        .header_maximizeWindowLeft {
-          order: 3;
-        }
+          .header_maximizeWindowLeft {
+            order: 3;
+          }
 
-        .header_closeWindow:hover {
-          color: #fe354e;
-        }
+          .header_closeWindow:hover {
+            color: #fe354e;
+          }
 
-        .header_closeWindow:active {
-          color: #fe354e;
-        }
-      `}</style>
+          .header_closeWindow:active {
+            color: #fe354e;
+          }
+        `}
+      </style>
     </header>
   );
 });

@@ -141,58 +141,60 @@ export default class Terms extends React.Component<React.PropsWithChildren<Terms
           borderColor={this.props.borderColor}
         />
 
-        <style jsx>{`
-          .terms_terms {
-            position: absolute;
-            margin-top: 34px;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom: 0;
-            color: #fff;
-          }
-
-          .terms_termsShifted {
-            margin-top: 68px;
-            animation: shift-down 0.2s ease-out;
-          }
-
-          .terms_termsNotShifted {
-            margin-top: 34px;
-            animation: shift-up 0.3s ease;
-          }
-
-          @keyframes shift-down {
-            0% {
-              transform: translateY(-34px);
+        <style jsx>
+          {`
+            .terms_terms {
+              position: absolute;
+              margin-top: 34px;
+              top: 0;
+              right: 0;
+              left: 0;
+              bottom: 0;
+              color: #fff;
             }
-            100% {
-              transform: translateY(0px);
-            }
-          }
 
-          @keyframes shift-up {
-            0% {
-              transform: translateY(34px);
+            .terms_termsShifted {
+              margin-top: 68px;
+              animation: shift-down 0.2s ease-out;
             }
-            100% {
-              transform: translateY(0px);
+
+            .terms_termsNotShifted {
+              margin-top: 34px;
+              animation: shift-up 0.3s ease;
             }
-          }
 
-          .terms_termGroup {
-            display: block;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: -9999em; /* Offscreen to pause xterm rendering, thanks to IntersectionObserver */
-          }
+            @keyframes shift-down {
+              0% {
+                transform: translateY(-34px);
+              }
+              100% {
+                transform: translateY(0px);
+              }
+            }
 
-          .terms_termGroupActive {
-            left: 0;
-          }
-        `}</style>
+            @keyframes shift-up {
+              0% {
+                transform: translateY(34px);
+              }
+              100% {
+                transform: translateY(0px);
+              }
+            }
+
+            .terms_termGroup {
+              display: block;
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              left: -9999em; /* Offscreen to pause xterm rendering, thanks to IntersectionObserver */
+            }
+
+            .terms_termGroupActive {
+              left: 0;
+            }
+          `}
+        </style>
       </div>
     );
   }

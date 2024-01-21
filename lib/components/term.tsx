@@ -393,7 +393,6 @@ export default class Term extends React.PureComponent<
   closeSearchBox = () => {
     this.props.onCloseSearch();
     this.searchAddon.clearDecorations();
-    this.searchAddon.clearActiveDecoration();
     this.setState((state) => ({
       ...state,
       searchResults: undefined

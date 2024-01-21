@@ -46,7 +46,7 @@ const Notifications = forwardRef<HTMLDivElement, NotificationsProps>((props, ref
             <>
               {props.messageText} (
               <a
-                style={{color: '#fff'}}
+                className="message_link"
                 onClick={(ev) => {
                   void window.require('electron').shell.openExternal(ev.currentTarget.href);
                   ev.preventDefault();
@@ -73,7 +73,7 @@ const Notifications = forwardRef<HTMLDivElement, NotificationsProps>((props, ref
           Version <b>{props.updateVersion}</b> ready.
           {props.updateNote && ` ${props.updateNote.trim().replace(/\.$/, '')}`} (
           <a
-            style={{color: '#000'}}
+            className="version_notes_link"
             onClick={(ev) => {
               void window.require('electron').shell.openExternal(ev.currentTarget.href);
               ev.preventDefault();
@@ -84,24 +84,12 @@ const Notifications = forwardRef<HTMLDivElement, NotificationsProps>((props, ref
           </a>
           ).{' '}
           {props.updateCanInstall ? (
-            <a
-              style={{
-                cursor: 'pointer',
-                textDecoration: 'underline',
-                fontWeight: 'bold'
-              }}
-              onClick={props.onUpdateInstall}
-            >
+            <a className="version_restart_link" onClick={props.onUpdateInstall}>
               Restart
             </a>
           ) : (
             <a
-              style={{
-                color: '#000',
-                cursor: 'pointer',
-                textDecoration: 'underline',
-                fontWeight: 'bold'
-              }}
+              className="version_download_link"
               onClick={(ev) => {
                 void window.require('electron').shell.openExternal(ev.currentTarget.href);
                 ev.preventDefault();
@@ -116,13 +104,32 @@ const Notifications = forwardRef<HTMLDivElement, NotificationsProps>((props, ref
       )}
       {props.customChildren}
 
-      <style jsx>{`
-        .notifications_view {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-        }
-      `}</style>
+      <style jsx>
+        {`
+          .notifications_view {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+          }
+          .message_link {
+            color: #fff;
+          }
+          .version_notes_link {
+            color: #000;
+          }
+          .version_restart_link {
+            cursor: 'pointer',
+            text-decoration: 'underline';
+            font-weight: 'bold';
+          }
+          .version_download_link {
+            color: '#000';
+            cursor: 'pointer';
+            text-decoration: 'underline';
+            font-weight: 'bold';
+          }
+        `}
+      </style>
     </div>
   );
 });
