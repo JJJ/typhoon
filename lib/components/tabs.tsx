@@ -13,14 +13,22 @@ const Tabs = forwardRef<HTMLElement, TabsProps>((props, ref) => {
   const {tabs = [], borderColor = '#ccc', onChange, onClose, fullScreen} = props;
 
   return (
-    <nav className="tabs_nav" ref={ref}>
+    <nav className={`tabs_nav ${fullScreen ? 'tabs_full_screen' : ''}`} ref={ref}>
       {props.customChildrenBefore}
       <>
-        <ul key="list" className={`tabs_list ${fullScreen && isMac ? 'tabs_fullScreen' : ''}`}>
+        <ul key="list" className={`tabs_list ${fullScreen ? 'tabs_fullScreen' : ''}`}>
           {tabs.map((tab, i) => {
             const {uid, title, isActive, hasActivity} = tab;
+            let text = 'Shell';
+
+            if (title !== '') {
+              text = title;
+            } else if (typeof process.env.LOGNAME !== 'undefined') {
+              text = process.env.LOGNAME;
+            }
+
             const tabProps = getTabProps(tab, props, {
-              text: title === '' ? 'Shell' : title,
+              text: text,
               isFirst: i === 0,
               isLast: tabs.length - 1 === i,
               borderColor,
@@ -32,16 +40,9 @@ const Tabs = forwardRef<HTMLElement, TabsProps>((props, ref) => {
             return <Tab key={`tab-${uid}`} {...tabProps} />;
           })}
         </ul>
-        {isMac && (
-          // eslint-disable-next-line prettier/prettier
-          <div
-            className={`tabs_borderShim ${fullScreen ? 'tabs_borderShimUndo' : ''}`}
-            key="shim"
-          />
-        )}
       </>
 
-      <DropdownButton {...props} tabsVisible={tabs.length > 1} />
+      <DropdownButton {...props} />
       {props.customChildren}
 
       <style jsx>
@@ -65,25 +66,12 @@ const Tabs = forwardRef<HTMLElement, TabsProps>((props, ref) => {
             max-height: 34px;
             display: flex;
             flex-flow: row;
-            margin-left: ${isMac ? '76px' : '0'};
             flex-grow: 1;
+            margin-left: ${isMac && !fullScreen ? '76px' : '0'};
           }
 
-          .tabs_fullScreen {
+          .tabs_full_screen {
             margin-left: -1px;
-          }
-
-          .tabs_borderShim {
-            position: absolute;
-            width: 76px;
-            bottom: 0;
-            border-color: ${borderColor};
-            border-bottom-style: solid;
-            border-bottom-width: 1px;
-          }
-
-          .tabs_borderShimUndo {
-            border-bottom-width: 0;
           }
         `}
       </style>
