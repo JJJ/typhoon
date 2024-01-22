@@ -11,11 +11,10 @@ interface Props {
   openNewTab: (name: string) => void;
   backgroundColor: string;
   borderColor: string;
-  tabsVisible: boolean;
 }
 const isMac = /Mac/.test(navigator.userAgent);
 
-const DropdownButton = ({defaultProfile, profiles, openNewTab, backgroundColor, borderColor, tabsVisible}: Props) => {
+const DropdownButton = ({defaultProfile, profiles, openNewTab, backgroundColor, borderColor}: Props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const ref = useRef(null);
 
@@ -31,12 +30,14 @@ const DropdownButton = ({defaultProfile, profiles, openNewTab, backgroundColor, 
     <div
       ref={ref}
       title="New Tab"
-      className={`new_tab ${tabsVisible ? 'tabs_visible' : 'tabs_hidden'}`}
+      className={`new_tab ${dropdownOpen ? 'new_tab_active' : ''}`}
       onClick={toggleDropdown}
       onDoubleClick={(e) => e.stopPropagation()}
       onBlur={() => setDropdownOpen(false)}
     >
-      <VscChevronDown className="profile_dropdown_icon" />
+      <div className="profile_dropdown_icon">
+        <VscChevronDown />
+      </div>
 
       {dropdownOpen && (
         <ul key="dropdown" className="profile_dropdown">
@@ -60,7 +61,8 @@ const DropdownButton = ({defaultProfile, profiles, openNewTab, backgroundColor, 
       <style jsx>
         {`
           .profile_dropdown_icon {
-            vertical-align: 'middle';
+            display: inline-block;
+            vertical-align: middle;
           }
 
           .profile_dropdown {
@@ -108,38 +110,27 @@ const DropdownButton = ({defaultProfile, profiles, openNewTab, backgroundColor, 
           }
 
           .new_tab {
-            background: transparent;
-            color: #fff;
-            border-left: 1px;
-            border-bottom: 1px;
-            border-left-style: solid;
-            border-bottom-style: solid;
-            border-left-width: 1px;
-            border-bottom-width: 1px;
+            position: fixed;
+            right: 12px;
+            top: 12px;
             cursor: pointer;
-            font-size: 12px;
-            height: 34px;
-            line-height: 34px;
-            padding: 0 16px;
-            position: relative;
+            color: #fff;
+            padding: 2px;
+            height: 22px;
+            width: 22px;
+            border-radius: 4px;
+            background: transparent;
             text-align: center;
             -webkit-user-select: none;
             ${isMac ? '-webkit-app-region: drag;' : ''}
-            top: '0px';
           }
 
-          .tabs_visible {
-            border-color: ${borderColor};
+          .new_tab:hover {
+            background-color: ${borderColor};
           }
 
-          .tabs_hidden {
-            border-color: transparent;
-            position: absolute;
-            right: 0;
-          }
-
-          .tabs_hidden:hover {
-            border-color: ${borderColor};
+          .new_tab_active {
+            background-color: ${borderColor};
           }
         `}
       </style>
